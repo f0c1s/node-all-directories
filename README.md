@@ -9,7 +9,7 @@ Get all the directories - node package
   var D = require('node-all-directories')
   var dirs = new D()
 
-  dirs.walk()
+  dirs.walk(/* depth = 1 */)
 
   // dirs.children contains directories on root dir.
 
