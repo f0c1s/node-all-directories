@@ -1,0 +1,26 @@
+{
+  "name": "node-all-directories",
+  "version": "1.0.0",
+  "description": "Get all the directories - node package",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitfaf/node-all-directories.git"
+  },
+  "keywords": [
+    "all directories",
+    "get all directories"
+  ],
+  "author": "Git Faf <git.faf@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gitfaf/node-all-directories/issues"
+  },
+  "homepage": "https://github.com/gitfaf/node-all-directories#readme",
+  "dependencies": {
+    "node-directories": "^1.0.1"
+  }
+}
