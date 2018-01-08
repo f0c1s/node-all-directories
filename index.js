@@ -7,14 +7,18 @@ class Directory {
     this.root = root || '/'
     this.children = null
     this.errors = []
+    this.depth = 0
   }
 
   walk(depth = 1) {
+    if (depth <= 0 || (this.children && this.depth >= depth)) {
+      return this
+    }
     try {
-      depth--;
+      this.depth = depth
       const dirs = d(this.root)
       this.children = dirs.map(d => new Directory(path.join(this.root, d)))
-      if (depth) {
+      if (--depth) {
         this.children.forEach(c => c.walk(depth))
       }
     } catch (error) {
@@ -23,7 +27,6 @@ class Directory {
       return this
     }
   }
-
 }
 
 module.exports = Directory

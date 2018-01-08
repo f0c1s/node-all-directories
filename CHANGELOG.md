@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 3
+
+- Fix walk() bug: if value of `depth` param was 0, that resulted in an infinite loop.
+- Directory object saves depth of the walk now.
+- Depth is decreased just before if check
+- If Depth is lower than what was calculated earlier, the object is returned immediately.
+
 ## Version 2
 
 - Errors while reading direcotries are saved with objects instead of printing to stdout via console.
