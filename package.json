@@ -1,29 +1,30 @@
 {
-  "name": "node-all-directories",
-  "version": "6.0.0",
-  "description": "Get all the directories - node package",
-  "main": ".eslintrc.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/f0c1s/node-all-directories.git"
-  },
-  "keywords": [
-    "all directories",
-    "get all directories"
-  ],
-  "author": "Git Faf <git.faf@gmail.com>",
-  "maintainers": [
-    "f0c1s"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/f0c1s/node-all-directories/issues"
-  },
-  "homepage": "https://github.com/f0c1s/node-all-directories#readme",
-  "dependencies": {
-    "node-directories": "^1.0.1"
-  }
+    "name": "node-all-directories",
+    "version": "7.0.0",
+    "description": "Get all the directories - node package",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/f0c1s/node-all-directories.git"
+    },
+    "keywords": [
+        "all directories",
+        "get all directories"
+    ],
+    "author": "Anubhav",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/f0c1s/node-all-directories/issues"
+    },
+    "homepage": "https://github.com/f0c1s/node-all-directories#readme",
+    "dependencies": {
+        "node-directories": "^3.0.0"
+    },
+    "devDependencies": {
+        "@types/jasmine": "^3.7.6",
+        "@types/node": "^15.6.1"
+    }
 }

@@ -1,4 +1,4 @@
 # Contributors
 
-Git Faf
-Anubhav Saini
+- Git Faf
+- Anubhav
