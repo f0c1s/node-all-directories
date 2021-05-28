@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 9
+
+- walk function
+- still broken
+
 ## Version 8
 
 - TypeScriptified
