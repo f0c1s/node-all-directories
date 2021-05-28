@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 8
+
+- TypeScriptified
+- broken...
+
 ## Version 7
 
 - Cleanup
