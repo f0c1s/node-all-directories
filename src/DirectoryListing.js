@@ -19,9 +19,10 @@ var DirectoryListing = /** @class */ (function () {
         this.depth = 0;
         this.root = r || '/';
     }
-    DirectoryListing.prototype.walk = function (depth) {
+    DirectoryListing.prototype.walk = function (depth, verbose) {
         var _this = this;
         if (depth === void 0) { depth = 1; }
+        if (verbose === void 0) { verbose = false; }
         var dontNeedToWalk = depth <= 0 || (this.children && this.depth >= depth);
         if (dontNeedToWalk) {
             return this;
@@ -29,11 +30,14 @@ var DirectoryListing = /** @class */ (function () {
         try {
             this.depth = depth;
             var dirs = d(this.root);
+            if (verbose) {
+                console.log(this.root + ": " + dirs);
+            }
             this.files = getFilesInCurrentDirectory(this.root);
             this.children = dirs.map(function (d) { return new DirectoryListing(path_1.join(_this.root, d)); });
             if (--depth) {
                 try {
-                    this.children.forEach(function (c) { return c.walk(depth); });
+                    this.children.forEach(function (c) { return c.walk(depth, verbose); });
                 }
                 catch (error) {
                     this.errors.push(error.message);

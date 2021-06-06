@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 10
+
+- `verbose` flag for `walk` function.
+
 ## Version 9
 
 - walk function

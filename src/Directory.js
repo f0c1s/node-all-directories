@@ -11,9 +11,10 @@ var Directory = /** @class */ (function () {
         this.depth = 0;
         this.root = root || '/';
     }
-    Directory.prototype.walk = function (depth) {
+    Directory.prototype.walk = function (depth, verbose) {
         var _this = this;
         if (depth === void 0) { depth = 1; }
+        if (verbose === void 0) { verbose = false; }
         var dontNeedToWalk = depth <= 0 || (this.children && this.depth >= depth);
         if (dontNeedToWalk) {
             return this;
@@ -21,10 +22,13 @@ var Directory = /** @class */ (function () {
         try {
             this.depth = depth;
             var dirs = d(this.root);
+            if (verbose) {
+                console.log(this.root + ": " + dirs);
+            }
             this.children = dirs.map(function (d) { return new Directory(path_1.join(_this.root, d)); });
             if (--depth) {
                 try {
-                    this.children.forEach(function (c) { return c.walk(depth); });
+                    this.children.forEach(function (c) { return c.walk(depth, verbose); });
                 }
                 catch (error) {
                     this.errors.push(error.message);

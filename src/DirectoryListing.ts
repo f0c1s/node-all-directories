@@ -21,7 +21,7 @@ class DirectoryListing {
         this.root = r || '/';
     }
 
-    walk(depth = 1) {
+    walk(depth = 1, verbose = false) {
         const dontNeedToWalk = depth <= 0 || (this.children && this.depth >= depth);
         if (dontNeedToWalk) {
             return this;
@@ -29,11 +29,14 @@ class DirectoryListing {
         try {
             this.depth = depth;
             const dirs = d(this.root);
+            if (verbose) {
+                console.log(`${this.root}: ${dirs}`);
+            }
             this.files = getFilesInCurrentDirectory(this.root);
             this.children = dirs.map((d: any) => new DirectoryListing(join(this.root, d)));
             if (--depth) {
                 try {
-                    this.children.forEach((c: any) => c.walk(depth));
+                    this.children.forEach((c: any) => c.walk(depth, verbose));
                 } catch (error) {
                     this.errors.push(error.message);
                 }
