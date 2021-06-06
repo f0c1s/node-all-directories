@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 12
+
+- `Directory` now lists files too.
+- Removing `DirectoryListing` as it was mainly duplicated code.
+- `tsconfig.json` updated.
+- `.d.ts.map`, `.js.map` and `.d.ts` files will be generated from now on.
+
 ## Version 11
 
 - `find` functionality

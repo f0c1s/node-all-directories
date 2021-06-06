@@ -1,4 +1,12 @@
 import {join} from 'path';
+import {readdirSync, lstatSync} from "fs";
+
+const getFilesInCurrentDirectory = (dir: any) => {
+    const content = readdirSync(dir);
+    const getPath = (x: any) => join(dir, x);
+    const isFile = (x: any) => lstatSync(getPath(x)).isFile();
+    return content.filter(isFile);
+};
 
 const d = require('node-directories');
 
@@ -13,6 +21,7 @@ interface DirectoryI {
     children: any;
     errors: any[];
     depth: number;
+    files: any[];
 
     walk(options?: OptionsI): Directory;
 
@@ -24,6 +33,7 @@ class Directory implements DirectoryI {
     children: any = null;
     errors: any[] = [];
     depth: number = 0;
+    files: any = null;
 
     constructor(root: string) {
         this.root = root || '/';
@@ -44,6 +54,7 @@ class Directory implements DirectoryI {
             if (options.verbose) {
                 console.log(`${this.root}: ${dirs}`);
             }
+            this.files = getFilesInCurrentDirectory(this.root);
             const children = this.children = dirs.map((d: any) => new Directory(join(this.root, d)));
             if (--depth) {
                 try {
@@ -53,7 +64,7 @@ class Directory implements DirectoryI {
                 }
             }
             if (options.callbacks && options.callbacks.length) {
-                options.callbacks.forEach(cb => cb(children))
+                options.callbacks.forEach(cb => cb(children));
             }
         } catch (error) {
             this.errors.push(error.message);
@@ -72,21 +83,29 @@ class Directory implements DirectoryI {
         const onWalk = (children: any) => {
             const roots = children.map((child: any) => child.root);
             roots.forEach((root: string) => {
-                findAll.forEach((toFind: string) => {
-                    if (root.endsWith(toFind)) {
-                        if (whenFound && typeof whenFound === 'function') {
-                            whenFound(root, toFind);
-                        } else {
-                            console.log(root, toFind);
+                try {
+                    findAll.forEach((toFind: string) => {
+                        if (root.endsWith(toFind)) {
+                            if (whenFound && typeof whenFound === 'function') {
+                                whenFound(root, toFind);
+                            } else {
+                                console.log(root, toFind);
+                            }
                         }
-                    }
-                });
+                    });
+                } catch (error) {
+                    this.errors.push(error.message);
+                }
             });
         };
         if (this.children) {
-            onWalk(this.children);
-            --options.depth;
-            this.children.forEach((child: any) => child.find(findAll, whenFound, options));
+            try {
+                onWalk(this.children);
+                --options.depth;
+                this.children.forEach((child: any) => child.find(findAll, whenFound, options));
+            } catch (error) {
+                this.errors.push(error.message);
+            }
         }
     }
 }

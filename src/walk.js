@@ -25,3 +25,4 @@ function walk(path, depth) {
         .map(function (dir) { return __spreadArray([path], walk("" + path + path_1.sep + dir, depth - 1)); });
 }
 exports.walk = walk;
+//# sourceMappingURL=walk.js.map

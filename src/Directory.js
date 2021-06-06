@@ -13,6 +13,13 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Directory = void 0;
 var path_1 = require("path");
+var fs_1 = require("fs");
+var getFilesInCurrentDirectory = function (dir) {
+    var content = fs_1.readdirSync(dir);
+    var getPath = function (x) { return path_1.join(dir, x); };
+    var isFile = function (x) { return fs_1.lstatSync(getPath(x)).isFile(); };
+    return content.filter(isFile);
+};
 var d = require('node-directories');
 var Directory = /** @class */ (function () {
     function Directory(root) {
@@ -20,6 +27,7 @@ var Directory = /** @class */ (function () {
         this.children = null;
         this.errors = [];
         this.depth = 0;
+        this.files = null;
         this.root = root || '/';
     }
     Directory.prototype.walk = function (options) {
@@ -39,6 +47,7 @@ var Directory = /** @class */ (function () {
             if (options.verbose) {
                 console.log(this.root + ": " + dirs);
             }
+            this.files = getFilesInCurrentDirectory(this.root);
             var children_1 = this.children = dirs.map(function (d) { return new Directory(path_1.join(_this.root, d)); });
             if (--depth_1) {
                 try {
@@ -58,6 +67,7 @@ var Directory = /** @class */ (function () {
         return this;
     };
     Directory.prototype.find = function (findAll, whenFound, options) {
+        var _this = this;
         if (options === void 0) { options = {
             depth: 1,
             verbose: false,
@@ -69,24 +79,35 @@ var Directory = /** @class */ (function () {
         var onWalk = function (children) {
             var roots = children.map(function (child) { return child.root; });
             roots.forEach(function (root) {
-                findAll.forEach(function (toFind) {
-                    if (root.endsWith(toFind)) {
-                        if (whenFound && typeof whenFound === 'function') {
-                            whenFound(root, toFind);
+                try {
+                    findAll.forEach(function (toFind) {
+                        if (root.endsWith(toFind)) {
+                            if (whenFound && typeof whenFound === 'function') {
+                                whenFound(root, toFind);
+                            }
+                            else {
+                                console.log(root, toFind);
+                            }
                         }
-                        else {
-                            console.log(root, toFind);
-                        }
-                    }
-                });
+                    });
+                }
+                catch (error) {
+                    _this.errors.push(error.message);
+                }
             });
         };
         if (this.children) {
-            onWalk(this.children);
-            --options.depth;
-            this.children.forEach(function (child) { return child.find(findAll, whenFound, options); });
+            try {
+                onWalk(this.children);
+                --options.depth;
+                this.children.forEach(function (child) { return child.find(findAll, whenFound, options); });
+            }
+            catch (error) {
+                this.errors.push(error.message);
+            }
         }
     };
     return Directory;
 }());
 exports.Directory = Directory;
+//# sourceMappingURL=Directory.js.map
