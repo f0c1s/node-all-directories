@@ -64,7 +64,7 @@ var Directory = /** @class */ (function () {
             callbacks: []
         }; }
         if (options && options.depth > this.depth) {
-            this.walk.apply(options);
+            this.walk(options);
         }
         var onWalk = function (children) {
             var roots = children.map(function (child) { return child.root; });

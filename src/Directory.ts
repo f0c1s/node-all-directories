@@ -67,7 +67,7 @@ class Directory implements DirectoryI {
         callbacks: []
     }) {
         if (options && options.depth > this.depth) {
-            this.walk.apply(options);
+            this.walk(options);
         }
         const onWalk = (children: any) => {
             const roots = children.map((child: any) => child.root);
