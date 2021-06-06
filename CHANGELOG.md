@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 11
+
+- `find` functionality
+- `walk` function signature changed.
+
 ## Version 10
 
 - `verbose` flag for `walk` function.

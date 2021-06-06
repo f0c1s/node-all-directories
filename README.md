@@ -4,6 +4,8 @@ Get all the directories - node package
 
 ## Usage
 
+### walk through file system
+
 ```javascript
 
 var Directory = require('node-all-directories').Directory
@@ -14,6 +16,8 @@ dirs.walk(/* depth = 1 */)
 // dirs.children contains directories on root dir.
 
 ```
+
+### List files along with directories
 
 ```javascript
 
@@ -54,6 +58,22 @@ dl.walk(3)
 //    depth: 3 }
 
 ```
+
+### Find directories
+
+```javascript
+  var D = require('node-all-directories').Directory
+  var dirs = new D()
+  const options = {depth: 4}
+  const whenFound = (root, tag) => { console.log(`root: ${root}, found: ${tag}`) }
+  const findThese = ['usr', 'Applications', 'github']
+  dir.find(findThese, whenFound, options)
+```
+
+If `options.depth` to `find` is greater than `dirs.depth`, then we walk.
+
+IMPORTANT: Callback is necessary to get the output of `find`.
+
 
 ## License
 
