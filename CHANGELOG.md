@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 13
+
+- No code changes.
+- Readme updated.
+
 ## Version 12
 
 - `Directory` now lists files too.

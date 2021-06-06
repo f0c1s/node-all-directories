@@ -1,12 +1,30 @@
 # node-all-directories
 
-Get all the directories - node package
+- [NPM](https://www.npmjs.com/package/node-all-directories)
+- [GitHub](https://github.com/f0c1s/node-all-directories)
+- Checkout [Changelog](CHANGELOG.md) for changes.
 
-Checkout [Changelog](CHANGELOG.md) for changes.
+## v13 (current version)
+
+## Dependencies
+
+- `node-directories`
+    - [NPM](https://www.npmjs.com/package/node-directories)
+    - [GitHub](https://github.com/iamanubhavsaini/node-directories)
+
+## Features
+
+- Get directories in an array that mimics directory structure.
+- Get files.
+- Find directories.
+
+## Installation
+
+`npm i node-all-direcotories`
 
 ## Usage
 
-### walk through file system
+### Walk through file system
 
 ```javascript
 
